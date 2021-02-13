@@ -1,0 +1,23 @@
+package CoolingSchedules;
+
+public class LinearCooling implements CoolingSchedule{
+    @Override
+    public double coolDownTemperature(int outerLoopIteration, double initTemperature, double coolingConstant) throws IllegalCoolingConstant {
+
+        if (checkIfCoolingConstIsIllegal(coolingConstant)) {
+            throw new IllegalCoolingConstant("Alpha should be higher than 1");
+        }else {
+            return coolTemperature(outerLoopIteration, initTemperature, coolingConstant);
+        }
+
+    }
+    private double coolTemperature(int outerLoopIteration, double initTemperature, double coolingConstant){
+
+        return initTemperature - coolingConstant * outerLoopIteration;
+    }
+
+    private Boolean checkIfCoolingConstIsIllegal(double alpha){
+
+        return alpha<=0;
+    }
+}
