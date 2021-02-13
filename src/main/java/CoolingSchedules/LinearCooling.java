@@ -5,7 +5,7 @@ public class LinearCooling implements CoolingSchedule{
     public double coolDownTemperature(int outerLoopIteration, double initTemperature, double coolingConstant) throws IllegalCoolingConstant {
 
         if (checkIfCoolingConstIsIllegal(coolingConstant)) {
-            throw new IllegalCoolingConstant("Alpha should be higher than 1");
+            throw new IllegalCoolingConstant("Alpha should be higher than 0");
         }else {
             return coolTemperature(outerLoopIteration, initTemperature, coolingConstant);
         }

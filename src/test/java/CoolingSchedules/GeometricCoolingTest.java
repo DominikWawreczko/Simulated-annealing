@@ -45,7 +45,7 @@ class GeometricCoolingTest {
     }
 
     @Test
-    void shouldReturnExceptionIfCoolingConstantIsHigherThaneightTenths() {
+    void shouldReturnExceptionIfCoolingConstantIsHigherThanEightTenths() {
         //given
         int outerLoopIteration = 1;
         double initTemperature = 10;
