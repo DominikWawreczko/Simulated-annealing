@@ -20,6 +20,6 @@ public class GeometricCooling implements CoolingSchedule{
 
     private Boolean checkIfCoolingConstIsIllegal(double alpha){
 
-        return alpha<0.8 && alpha > 0.95;
+        return alpha<0.8 || alpha > 0.95;
     }
 }
