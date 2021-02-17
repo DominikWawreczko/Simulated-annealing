@@ -1,7 +1,7 @@
 import CoolingSchedules.*;
 
 public class CoolingScheduleFactor {
-    public CoolingSchedule getCoolingSchedule(CoolingScheduleType coolingScheduleType) throws InvalidCoolingScheduleType{
+    public static CoolingSchedule getCoolingSchedule(CoolingScheduleType coolingScheduleType) throws InvalidCoolingScheduleType{
         switch (coolingScheduleType){
             case GEOMETRIC:
                 return new GeometricCooling();
