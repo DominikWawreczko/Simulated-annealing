@@ -1,3 +1,5 @@
+package CoolingSchedules;
+
 import CoolingSchedules.*;
 
 public class CoolingScheduleFactor {

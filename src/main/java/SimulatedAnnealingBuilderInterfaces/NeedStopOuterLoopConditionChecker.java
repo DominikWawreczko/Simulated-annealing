@@ -1,0 +1,7 @@
+package SimulatedAnnealingBuilderInterfaces;
+
+import StopConditionChecker.StopOuterLoopConditionChecker;
+
+public interface NeedStopOuterLoopConditionChecker {
+    public NeedInnerLoopLength stopOuterLoopConditionChecker(StopOuterLoopConditionChecker stopOuterLoopConditionChecker);
+}

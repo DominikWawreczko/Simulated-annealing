@@ -1,6 +1,6 @@
 package StopConditionChecker;
 
 @FunctionalInterface
-public interface StopConditionChecker {
+public interface StopOuterLoopConditionChecker {
     public boolean shouldContinue();
 }
