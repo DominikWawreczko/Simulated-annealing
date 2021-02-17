@@ -1,2 +1,5 @@
-public class Solution {
+public interface Solution {
+    public Solution generateNeighbourSolution();
+    public double fitnessFunction();
+
 }
