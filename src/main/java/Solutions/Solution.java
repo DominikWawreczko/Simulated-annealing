@@ -1,4 +1,4 @@
-package SimulatedAnnealing;
+package Solutions;
 
 public interface Solution {
     public Solution generateNeighbourSolution();

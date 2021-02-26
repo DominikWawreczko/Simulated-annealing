@@ -6,6 +6,7 @@ import CoolingSchedules.CoolingScheduleFactor;
 import CoolingSchedules.CoolingScheduleType;
 import CoolingSchedules.InvalidCoolingScheduleType;
 import SimulatedAnnealingBuilderInterfaces.*;
+import Solutions.Solution;
 import StopConditionChecker.StopOuterLoopConditionChecker;
 
 public class SimulatedAnnealing {
