@@ -3,5 +3,5 @@ package SimulatedAnnealingBuilderInterfaces;
 import CoolingSchedules.CoolingScheduleType;
 
 public interface NeedCoolingSchedule {
-    public NeedInitTemperature coolingSchedule(CoolingScheduleType scheduleType);
+    NeedInitTemperature coolingSchedule(CoolingScheduleType scheduleType);
 }

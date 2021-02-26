@@ -1,7 +1,7 @@
 package Solutions;
 
 public interface Solution {
-    public Solution generateNeighbourSolution();
-    public double fitnessFunction();
+    Solution generateNeighbourSolution();
+    double fitnessFunction();
 
 }

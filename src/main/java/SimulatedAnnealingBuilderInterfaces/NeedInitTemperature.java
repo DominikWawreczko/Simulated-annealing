@@ -1,5 +1,5 @@
 package SimulatedAnnealingBuilderInterfaces;
 
 public interface  NeedInitTemperature {
-    public NeedCoolingConstant initTemperature(Double temperature);
+    NeedCoolingConstant initTemperature(Double temperature);
 }

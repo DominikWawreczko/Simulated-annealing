@@ -3,7 +3,7 @@ package StopConditionChecker;
 import SimulatedAnnealing.CurrentLoopData;
 
 public class StopWhenTemperatureIsLow implements StopOuterLoopConditionChecker{
-    private double stopTemperature;
+    private final double stopTemperature;
 
     public StopWhenTemperatureIsLow(double stopTemperature) {
         this.stopTemperature = stopTemperature;

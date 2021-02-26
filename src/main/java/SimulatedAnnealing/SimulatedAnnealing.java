@@ -21,30 +21,7 @@ public class SimulatedAnnealing {
 
     }
 
-    public Solution simulateAnneal(Solution solution){
-        Solution theBestSolutionSoFar =solution;
-        CurrentLoopData currentLoopData = new CurrentLoopData(initTemperature);
-        currentLoopData.incrementLoop();
-        do {
-            for (int iteration = 0; iteration < innerLoopLength; iteration++){
-                Solution newSolution = solution.generateNeighbourSolution();
-                double delta = newSolution.fitnessFunction() - solution.fitnessFunction();
-                if(acceptanceNewSolutionMethod.shouldAcceptNewSolution(delta, currentLoopData)){
-                    solution = newSolution;
-                }
-                if(isNewSolutionBetter(theBestSolutionSoFar, newSolution)){
-                    theBestSolutionSoFar = newSolution;
-                }
-            }
-            currentLoopData.setTemperature(coolingSchedule.coolDownTemperature(currentLoopData.getLoopNumber(),initTemperature,coolingConstant));
-        }while (!stopOuterLoopConditionChecker.shouldContinue(currentLoopData));
-        return theBestSolutionSoFar;
-    }
 
-    private boolean isNewSolutionBetter(Solution oldSolution, Solution newSolution){
-        double difference = newSolution.fitnessFunction() - oldSolution.fitnessFunction();
-        return difference>0;
-    }
 
     public static NeedCoolingSchedule builder() {
         return new Builder();
@@ -117,8 +94,29 @@ public class SimulatedAnnealing {
         }
     }
 
+    public Solution simulateAnneal(Solution solution){
+        double differenceBetweenNewAndOldSolution;
+        Solution theBestSolutionSoFar =solution;
+        CurrentLoopData currentLoopData = new CurrentLoopData(initTemperature);
+        do {
+            currentLoopData.incrementLoop();
+            for (int iteration = 0; iteration < innerLoopLength; iteration++){
+                Solution newSolution = solution.generateNeighbourSolution();
+                differenceBetweenNewAndOldSolution = newSolution.fitnessFunction() - solution.fitnessFunction();
+                if(acceptanceNewSolutionMethod.shouldAcceptNewSolution(differenceBetweenNewAndOldSolution, currentLoopData)){
+                    solution = newSolution;
+                }
+                if(isNewSolutionBetter(theBestSolutionSoFar, newSolution)){
+                    theBestSolutionSoFar = newSolution;
+                }
+            }
+            currentLoopData.setTemperature(coolingSchedule.coolDownTemperature(currentLoopData.getLoopNumber(),initTemperature,coolingConstant));
+        }while (!stopOuterLoopConditionChecker.shouldContinue(currentLoopData));
+        return theBestSolutionSoFar;
+    }
 
-
-
-
+    private boolean isNewSolutionBetter(Solution oldSolution, Solution newSolution){
+        double difference = newSolution.fitnessFunction() - oldSolution.fitnessFunction();
+        return difference>0;
+    }
 }

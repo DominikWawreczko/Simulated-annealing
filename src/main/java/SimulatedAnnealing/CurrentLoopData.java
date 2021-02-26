@@ -11,7 +11,6 @@ public class CurrentLoopData {
 
     public void setTemperature(double temperature){
         this.temperature = temperature;
-        this.loopNumber = loopNumber;
     }
 
     public double getTemperature() {
