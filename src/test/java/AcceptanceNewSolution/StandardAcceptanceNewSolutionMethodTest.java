@@ -30,7 +30,12 @@ class StandardAcceptanceNewSolutionMethodTest {
         Assertions.assertThat(result).isTrue();
 
     }
-
+/*
+Probabilities when methods below are working fine that we still have "red tests" are:
+6.5331862350007E-23 and
+1.606938044259E-40
+so we shouldn't care about it
+ */
     @Test
     void shouldSometimesReturnTrueIfDifferenceIsSmallerThanZero() {
         //given
