@@ -1,5 +1,5 @@
 package SimulatedAnnealingBuilderInterfaces;
 
 public interface NeedInnerLoopLength {
-    public CanBeBuild innerLoopLength(int innerLoopLength);
+    public NeedAcceptanceNewSolutionMethod innerLoopLength(int innerLoopLength);
 }

@@ -1,5 +1,6 @@
 package SimulatedAnnealing;
 
+import AcceptanceNewSolution.AcceptanceNewSolutionMethod;
 import CoolingSchedules.CoolingSchedule;
 import CoolingSchedules.CoolingScheduleFactor;
 import CoolingSchedules.CoolingScheduleType;
@@ -13,17 +14,45 @@ public class SimulatedAnnealing {
     private double coolingConstant;
     private CoolingSchedule coolingSchedule;
     private StopOuterLoopConditionChecker stopOuterLoopConditionChecker;
+    private AcceptanceNewSolutionMethod acceptanceNewSolutionMethod;
 
     private SimulatedAnnealing(){
 
     }
 
-    public static class Builder implements CanBeBuild, NeedCoolingSchedule, NeedInnerLoopLength, NeedCoolingConstant, NeedInitTemperature, NeedStopOuterLoopConditionChecker {
+    public Solution simulateAnneal(Solution solution){
+        Solution theBestSolutionSoFar =solution;
+        CurrentLoopData currentLoopData = new CurrentLoopData(initTemperature);
+        currentLoopData.incrementLoop();
+        do {
+            for (int iteration = 0; iteration < innerLoopLength; iteration++){
+                Solution newSolution = solution.generateNeighbourSolution();
+                double delta = newSolution.fitnessFunction() - solution.fitnessFunction();
+                if(acceptanceNewSolutionMethod.shouldAcceptNewSolution(delta, currentLoopData)){
+                    solution = newSolution;
+                }
+                if(isNewSolutionBetter(theBestSolutionSoFar, newSolution)){
+                    theBestSolutionSoFar = newSolution;
+                }
+            }
+            currentLoopData.setTemperature(coolingSchedule.coolDownTemperature(currentLoopData.getLoopNumber(),initTemperature,coolingConstant));
+        }while (!stopOuterLoopConditionChecker.shouldContinue(currentLoopData));
+        return theBestSolutionSoFar;
+    }
+
+    private boolean isNewSolutionBetter(Solution oldSolution, Solution newSolution){
+        double difference = newSolution.fitnessFunction() - oldSolution.fitnessFunction();
+        return difference>0;
+    }
+
+    public static class Builder implements CanBeBuild, NeedCoolingSchedule, NeedInnerLoopLength, NeedCoolingConstant, NeedInitTemperature, NeedStopOuterLoopConditionChecker, NeedAcceptanceNewSolutionMethod {
         private int innerLoopLength;
         private double initTemperature;
         private double coolingConstant;
         private CoolingSchedule coolingSchedule;
         private StopOuterLoopConditionChecker stopOuterLoopConditionChecker;
+        private AcceptanceNewSolutionMethod acceptanceNewSolutionMethod;
+
 
         @Override
         public SimulatedAnnealing build() {
@@ -33,6 +62,7 @@ public class SimulatedAnnealing {
             simulatedAnnealing.stopOuterLoopConditionChecker = this.stopOuterLoopConditionChecker;
             simulatedAnnealing.initTemperature = this.initTemperature;
             simulatedAnnealing.innerLoopLength = this.innerLoopLength;
+            simulatedAnnealing.acceptanceNewSolutionMethod = this.acceptanceNewSolutionMethod;
             return simulatedAnnealing;
         }
 
@@ -49,7 +79,7 @@ public class SimulatedAnnealing {
                 return this;
 
             }catch (InvalidCoolingScheduleType invalidCoolingScheduleType) {
-                //todo
+                System.exit(0);
                 return null;
             }
 
@@ -63,7 +93,7 @@ public class SimulatedAnnealing {
         }
 
         @Override
-        public CanBeBuild innerLoopLength(int innerLoopLength) {
+        public NeedAcceptanceNewSolutionMethod innerLoopLength(int innerLoopLength) {
             this.innerLoopLength = innerLoopLength;
             return this;
         }
@@ -73,17 +103,15 @@ public class SimulatedAnnealing {
             this.stopOuterLoopConditionChecker = stopOuterLoopConditionChecker;
             return this;
         }
+
+        @Override
+        public CanBeBuild AcceptanceNewSolutionMethod(AcceptanceNewSolutionMethod acceptanceNewSolutionMethod) {
+            this.acceptanceNewSolutionMethod = acceptanceNewSolutionMethod;
+            return this;
+        }
     }
 
-    public Solution simulateAnneal(Solution solution){
-        do {
-            for (int iteration = 0; iteration < innerLoopLength; iteration++){
-                //todo
-            }
 
-        }while (stopOuterLoopConditionChecker.shouldContinue());
-        return solution;
-    }
 
 
 

@@ -1,6 +1,8 @@
 package StopConditionChecker;
 
+import SimulatedAnnealing.CurrentLoopData;
+
 @FunctionalInterface
 public interface StopOuterLoopConditionChecker {
-    public boolean shouldContinue();
+    boolean shouldContinue(CurrentLoopData currentLoopData);
 }
