@@ -45,6 +45,11 @@ public class SimulatedAnnealing {
         return difference>0;
     }
 
+    public static NeedCoolingSchedule builder() {
+        return new Builder();
+    }
+
+
     public static class Builder implements CanBeBuild, NeedCoolingSchedule, NeedInnerLoopLength, NeedCoolingConstant, NeedInitTemperature, NeedStopOuterLoopConditionChecker, NeedAcceptanceNewSolutionMethod {
         private int innerLoopLength;
         private double initTemperature;
