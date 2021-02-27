@@ -18,7 +18,7 @@ class StandardAcceptanceNewSolutionMethodTest {
     }
 
     @Test
-    void shouldReturnTrueIfDifferenceIsHigherThanZero() {
+    void shouldReturnTrueIfDifferenceIsSmallerThanZero() {
         //given
         double difference = 10;
         double temperature =1;
@@ -27,17 +27,17 @@ class StandardAcceptanceNewSolutionMethodTest {
         boolean result = standardAcceptanceNewSolutionMethod.shouldAcceptNewSolution(difference,currentLoopData);
 
         //then
-        Assertions.assertThat(result).isTrue();
+        Assertions.assertThat(result).isFalse();
 
     }
 /*
-Probabilities when methods below are working fine that we still have "red tests" are:
+Probabilities when methods below are working fine and we still have "red tests" are:
 6.5331862350007E-23 and
 1.606938044259E-40
 so we shouldn't care about it
  */
     @Test
-    void shouldSometimesReturnTrueIfDifferenceIsSmallerThanZero() {
+    void shouldSometimesReturnTrueIfDifferenceIsHigherThanZero() {
         //given
         double difference = -10;
         boolean isTrue = false;
@@ -57,7 +57,7 @@ so we shouldn't care about it
     }
 
     @Test
-    void shouldSometimesReturnFalseIfDifferenceIsSmallerThanZero() {
+    void shouldSometimesReturnFalseIfDifferenceIsHigherThanZero() {
         //given
         double difference = -10;
         boolean isFalse = false;

@@ -112,13 +112,14 @@ public class SimulatedAnnealingModified implements SimulatedAnnealing {
                 }
             }
             currentLoopData.setTemperature(coolingSchedule.coolDownTemperature(currentLoopData.getLoopNumber(),initTemperature,coolingConstant));
-        }while (!stopOuterLoopConditionChecker.shouldContinue(currentLoopData));
+        }while (stopOuterLoopConditionChecker.shouldContinue(currentLoopData));
+
         return theBestSolutionSoFar;
     }
 
     private boolean isNewSolutionTheBestSoFar(Solution oldSolution, Solution newSolution){
         double difference = calculateDifference(newSolution, oldSolution);
-        return difference>0;
+        return difference<0;
     }
 
     private double calculateDifference(Solution solution, Solution solution1){

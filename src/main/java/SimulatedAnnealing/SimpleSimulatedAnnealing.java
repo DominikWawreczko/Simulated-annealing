@@ -109,7 +109,7 @@ public class SimpleSimulatedAnnealing implements SimulatedAnnealing {
 
             }
             currentLoopData.setTemperature(coolingSchedule.coolDownTemperature(currentLoopData.getLoopNumber(),initTemperature,coolingConstant));
-        }while (!stopOuterLoopConditionChecker.shouldContinue(currentLoopData));
+        }while (stopOuterLoopConditionChecker.shouldContinue(currentLoopData));
         return solution;
     }
 

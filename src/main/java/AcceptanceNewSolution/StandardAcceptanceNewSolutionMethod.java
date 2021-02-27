@@ -5,7 +5,7 @@ import SimulatedAnnealing.CurrentLoopData;
 public class StandardAcceptanceNewSolutionMethod implements AcceptanceNewSolutionMethod {
     @Override
     public boolean shouldAcceptNewSolution(Double difference, CurrentLoopData currentLoopData) {
-        if (difference>0){
+        if (difference<0){
             return true;
         }else {
             double temperature = currentLoopData.getTemperature();
@@ -13,7 +13,7 @@ public class StandardAcceptanceNewSolutionMethod implements AcceptanceNewSolutio
 
         }
     }
-    private boolean standardProbabilityMethod(Double difference, double temperature){
+    private boolean standardProbabilityMethod(double difference, double temperature){
         var randomNumber = Math.random();
         return randomNumber < getExp(difference, temperature);
     }

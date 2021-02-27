@@ -8,12 +8,12 @@ import StopConditionChecker.StopWhenTemperatureIsLow;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class SimulatedAnnealingModifiedTest {
+class SimpleSimulatedAnnealingTest {
     @Test
     void shouldCalculateSolutionCloseToOptimum() {
         //given
 
-        var simulatedAnnealingModified = SimulatedAnnealingModified.builder().
+        var simpleSimulatedAnnealing = SimpleSimulatedAnnealing.builder().
                 coolingSchedule(CoolingScheduleType.GEOMETRIC).
                 initTemperature(30.0).
                 coolingConstant(0.85).
@@ -24,15 +24,10 @@ class SimulatedAnnealingModifiedTest {
 
         //when
         boolean IsResultCloseToOptimum;
-        Solution result = simulatedAnnealingModified.simulateAnneal(new ExampleSolution());
+        Solution result = simpleSimulatedAnnealing.simulateAnneal(new ExampleSolution());
         IsResultCloseToOptimum = result.fitnessFunction() < 1;
 
         //then
         Assertions.assertThat(IsResultCloseToOptimum).isTrue();
     }
 }
-
-
-
-
-
