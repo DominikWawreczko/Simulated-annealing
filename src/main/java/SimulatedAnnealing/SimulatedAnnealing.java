@@ -102,11 +102,11 @@ public class SimulatedAnnealing {
             currentLoopData.incrementLoop();
             for (int iteration = 0; iteration < innerLoopLength; iteration++){
                 Solution newSolution = solution.generateNeighbourSolution();
-                differenceBetweenNewAndOldSolution = newSolution.fitnessFunction() - solution.fitnessFunction();
+                differenceBetweenNewAndOldSolution = calculateDifference(newSolution, solution);
                 if(acceptanceNewSolutionMethod.shouldAcceptNewSolution(differenceBetweenNewAndOldSolution, currentLoopData)){
                     solution = newSolution;
                 }
-                if(isNewSolutionBetter(theBestSolutionSoFar, newSolution)){
+                if(isNewSolutionTheBestSoFar(theBestSolutionSoFar, newSolution)){
                     theBestSolutionSoFar = newSolution;
                 }
             }
@@ -115,8 +115,12 @@ public class SimulatedAnnealing {
         return theBestSolutionSoFar;
     }
 
-    private boolean isNewSolutionBetter(Solution oldSolution, Solution newSolution){
-        double difference = newSolution.fitnessFunction() - oldSolution.fitnessFunction();
+    private boolean isNewSolutionTheBestSoFar(Solution oldSolution, Solution newSolution){
+        double difference = calculateDifference(newSolution, oldSolution);
         return difference>0;
+    }
+
+    private double calculateDifference(Solution solution, Solution solution1){
+        return solution.fitnessFunction() - solution1.fitnessFunction();
     }
 }
